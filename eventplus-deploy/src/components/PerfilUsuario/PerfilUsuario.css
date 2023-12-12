@@ -22,8 +22,24 @@
 .perfil-usuario__menuitem {
     font-family: Poppins-Regular;
     font-size: .8rem;
-    color: #201849;
+    color: white;
     text-decoration: none;
+}
+
+.perfil-usuario__menuitem__botao{
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    color: white;
+    background-color: #C500E0;
+    width: 90px;
+    height: 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    
+
 }
 
 .perfil-usuario__icon {

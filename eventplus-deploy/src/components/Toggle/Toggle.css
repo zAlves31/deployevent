@@ -32,8 +32,8 @@
 
 .toggle--active {
     /* justify-content: flex-end; */
-    border: 2px solid #B51D44;
-    background-color: #B51D44;
+    border: 2px solid #C500E0;
+    background-color: #C500E0;
 }
 
 .toggle__switch--active {
@@ -81,11 +81,11 @@
   }
   
   input:checked + .slider {
-    background-color: #B51D44;
+    background-color: #C500E0;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #B51D44;
+    box-shadow: 0 0 1px #C500E0;
   }
   
   input:checked + .slider:before {
