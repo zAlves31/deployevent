@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.CognitiveServices.ContentModerator;
+using System.Text;
 using webapi.event_.Domains;
 using webapi.event_.Repositories;
 
@@ -10,14 +12,58 @@ namespace webapi.event_.Controllers
     [Produces("application/json")]
     public class ComentariosEventoController : ControllerBase
     {
-        ComentariosEventoRepository comentario = new ComentariosEventoRepository();
+        ComentariosEventoRepository _comentariosEventoRepository = new ComentariosEventoRepository();
+
+        private readonly ContentModeratorClient _contentModeratorClient;
+
+        public ComentariosEventoController(ContentModeratorClient contentModeratorClient)
+        {
+            _contentModeratorClient = contentModeratorClient;
+        }
+
+        [HttpPost("ComentarioIA")]
+        public async Task<IActionResult> PostIA(ComentariosEvento comentario)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(comentario.Descricao))
+                {
+                    return BadRequest("A descricao do comentario nao pode estar vazio ou nulo!");
+                }
+
+                using var stream = new MemoryStream(Encoding.UTF8.GetBytes(comentario.Descricao));
+
+                var moderationResult = await _contentModeratorClient.TextModeration
+                    .ScreenTextAsync("text/plain", stream, "por", false, false, null, true);
+
+                if (moderationResult.Terms != null)
+                {
+                    comentario.Exibe = false;
+
+                    _comentariosEventoRepository.Cadastrar(comentario);
+
+                }
+                else
+                {
+                    comentario.Exibe = true;
+
+                    _comentariosEventoRepository.Cadastrar(comentario);
+                }
+
+                return StatusCode(201, comentario);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                return Ok(comentario.Listar());
+                return Ok(_comentariosEventoRepository.Listar());
             }
             catch(Exception e) 
             { 
@@ -30,7 +76,7 @@ namespace webapi.event_.Controllers
         {
             try
             {
-                return Ok(comentario.BuscarPorIdUsuario(idUsuario, idEvento));
+                return Ok(_comentariosEventoRepository.BuscarPorIdUsuario(idUsuario, idEvento));
             }
             catch(Exception)
             {
@@ -43,7 +89,7 @@ namespace webapi.event_.Controllers
         {
             try
             {
-                comentario.Cadastrar(novoComentario);
+                _comentariosEventoRepository.Cadastrar(novoComentario);
                 
                 return StatusCode(201, novoComentario);
             }
@@ -58,13 +104,26 @@ namespace webapi.event_.Controllers
         {
             try
             {
-                comentario.Deletar(id);
+                _comentariosEventoRepository.Deletar(id);
 
                 return StatusCode(204);
             }
             catch(Exception)
             {
                 throw;
+            }
+        }
+
+        [HttpGet("ListarSomenteExibe")]
+        public IActionResult GetShow()
+        {
+            try
+            {
+                return Ok(_comentariosEventoRepository.ListarSomenteExibe());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

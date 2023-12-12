@@ -37,7 +37,7 @@
   
     padding: 20px 10px;
   
-    background-color: var(--color-white);
+    background-color: #34014B;
     border-radius: 5px;
   }
   
@@ -47,7 +47,7 @@
     width: 100%;
     font-family: Poppins-SemiBold;
     font-size: 0.875rem;
-    /* text-transform: uppercase; */
+    color: white;
   }
   
   .modal__close {
@@ -69,6 +69,7 @@
   .comentary__title {
     font-size: 0.875rem;
     font-family: Poppins-Medium;
+    color: white;
   }
   .comentary__icon-delete {
     width: 15px;

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Nav.css";
 
 import logoMobile from "../../assets/images/logo-white.svg";
-import logoDesktop from "../../assets/images/logo-pink.svg";
+import logoDesktop from "../../assets/images/logo-white.svg";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/AuthContext";
 
