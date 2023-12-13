@@ -1,5 +1,5 @@
 import React from "react";
-import "./NextEvent.css";
+import "./LastEvent.css";
 
 import { Tooltip } from "react-tooltip";
 
@@ -37,7 +37,7 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
         }}
         className="event-card__connect-link"
       >
-        Conectar
+        Comentarios
       </a>
     </article>
   );

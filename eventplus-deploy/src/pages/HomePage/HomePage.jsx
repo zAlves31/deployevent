@@ -7,6 +7,7 @@ import VisionSection from "../../components/VisionSection/VisionSection";
 import ContactSection from "../../components/ContactSection/ContactSection";
 import Title from "../../components/Title/Title";
 import NextEvent from "../../components/NextEvent/NextEvent";
+import LastEvent from "../../components/LastEvent/LastEvent"
 
 import Container from "../../components/Container/Container";
 import api from "../../Services/Service";
@@ -84,7 +85,7 @@ const HomePage = () => {
           <div className="events-box">
             {previousEvents.map((e) => {
               return (
-                <NextEvent
+                <LastEvent
                   key={e.idEvento}
                   title={e.nomeEvento}
                   description={e.descricao}
