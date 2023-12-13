@@ -10,6 +10,33 @@
     "version": "v1"
   },
   "paths": {
+    "/api/ComentariosEvento/ComentarioIA": {
+      "post": {
+        "tags": [
+          "ComentariosEvento"
+        ],
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ComentariosEvento"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/ComentariosEvento": {
       "get": {
         "tags": [
@@ -96,6 +123,18 @@
         }
       }
     },
+    "/api/ComentariosEvento/ListarSomenteExibe": {
+      "get": {
+        "tags": [
+          "ComentariosEvento"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Evento": {
       "get": {
         "tags": [
@@ -134,6 +173,18 @@
       }
     },
     "/api/Evento/ListarProximos": {
+      "get": {
+        "tags": [
+          "Evento"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Evento/ListarAnteriores": {
       "get": {
         "tags": [
           "Evento"
