@@ -30,7 +30,7 @@
     /*height: 466px;  apagar */
     margin-top: 60px;
     color: var(--color-white);
-    color: var(--text-color);
+    color: white;
     /* border: 1px solid white; */
   }
   
@@ -40,7 +40,7 @@
     justify-content: space-between;
   
     margin-bottom: 30px;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid white;
   }
   .tbal-data__head-row--red-color {
     border-bottom-color: var(--color-red);
