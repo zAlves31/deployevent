@@ -35,7 +35,7 @@ const EventosAlunoPage = () => {
   const { userData } = useContext(UserContext);
   const [comentario, setComentario] = useState("");
   const [idEvento, setIdEvento] = useState("");
-  const [idComentarioEvento, setIdComentarioEvento] = useState(null);
+  const [idComentario, setIdComentario] = useState(null);
 
   useEffect(() => {
     loadEventsType();
@@ -162,7 +162,7 @@ const EventosAlunoPage = () => {
       // console.log(myComm);
 
       setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      setIdComentarioEvento(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
     } catch (error) {
       console.log("Erro ao carregar o evento");
       console.log(error);
@@ -273,7 +273,7 @@ const EventosAlunoPage = () => {
           comentaryText={comentario}
           userId={userData.userId}
           idEvento={idEvento}
-          idComentario={idComentarioEvento}
+          idComentario={idComentario}
         />
       ) : null}
     </>
