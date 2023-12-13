@@ -13,7 +13,7 @@ const Modal = ({
   fnPost = null,
   userId = null,
   idEvento = null,
-  idComentario = null,
+  idComentarioEvento = null,
 }) => {
   const [comentarioDesc, setComentarioDesc] = useState("");
 
@@ -45,7 +45,7 @@ const Modal = ({
             className="comentary__icon-delete"
             alt="Ícone de uma lixeira"
             onClick={async () => {
-              await fnDelete(idComentario);
+              await fnDelete(idComentarioEvento);
               await carregarDados();
             }}
           />
@@ -69,7 +69,7 @@ const Modal = ({
           textButton="Comentar"
           additionalClass="comentary__button"
           manipulationFunction={async () => {
-            if (idComentario !== null) {
+            if (idComentarioEvento !== null) {
                 alert("Já existe um comentàrio cadastrado para o evento.");
               } else {
                 
