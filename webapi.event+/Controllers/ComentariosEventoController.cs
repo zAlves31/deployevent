@@ -59,11 +59,11 @@ namespace webapi.event_.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(Guid id)
         {
             try
             {
-                return Ok(_comentariosEventoRepository.Listar());
+                return Ok(_comentariosEventoRepository.Listar(id));
             }
             catch(Exception e) 
             { 
@@ -108,18 +108,18 @@ namespace webapi.event_.Controllers
 
                 return StatusCode(204);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                throw;
+                return BadRequest(e.Message);
             }
         }
 
         [HttpGet("ListarSomenteExibe")]
-        public IActionResult GetShow()
+        public IActionResult GetShow(Guid id)
         {
             try
             {
-                return Ok(_comentariosEventoRepository.ListarSomenteExibe());
+                return Ok(_comentariosEventoRepository.ListarSomenteExibe(id));
             }
             catch (Exception e)
             {

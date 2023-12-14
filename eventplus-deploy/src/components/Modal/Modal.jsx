@@ -1,8 +1,9 @@
 import React, {useEffect, useState } from "react";
 import trashDelete from "../../assets/images/trash-delete-red.png";
-
+import Notification from "../../components/Notification/Notification";
 import { Button, Input } from "../FormComponents/FormComponents";
 import "./Modal.css";
+
 
 const Modal = ({
   modalTitle = "Feedback",
@@ -16,6 +17,7 @@ const Modal = ({
   idComentario = null,
 }) => {
   const [comentarioDesc, setComentarioDesc] = useState("");
+  const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
 
   useEffect(() => {
     carregarDados();
@@ -70,15 +72,25 @@ const Modal = ({
           additionalClass="comentary__button"
           manipulationFunction={async () => {
             if (idComentario !== null) {
-                alert("Já existe um comentàrio cadastrado para o evento.");
-              } else {
+              setNotifyUser({
+                titleNote: "Erro",
+                textNote: `Já existe um comentàrio cadastrado para o evento.`,
+                imgIcon: "danger",
+                imgAlt:
+                  "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+                showMessage: true,
+              });
+            } else {
                 
-                await fnPost(comentarioDesc.trim(), userId, idEvento);
-                await carregarDados();
-              }
-              setComentarioDesc("");//;limpa o campo do input
+              await fnPost(comentarioDesc.trim(), userId, idEvento);
+              await carregarDados();
+            }
+            setComentarioDesc("");//;limpa o campo do input
           }}
+  
         />
+
+        {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
       </article>
     </div>
   );

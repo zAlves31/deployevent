@@ -11,6 +11,8 @@ import api, {
   myEventsResource,
   presencesEventResource,
   commentaryEventResource,
+  commentaryEventResourceIA,
+  commentaryIdEventResource,
 } from "../../Services/Service";
 
 import "./EventosAlunoPage.css";
@@ -150,19 +152,17 @@ const EventosAlunoPage = () => {
     try {
       // api está retornando sempre todos os comentários do usuário
       const promise = await api.get(
-        `${commentaryEventResource}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+        `${commentaryIdEventResource}?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
-      const myComm = await promise.data.filter(
-        (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
-      );
+      const myCommentary = promise.data;
+      return myCommentary;
+      // const myComm = await promise.data.filter(
+      //   (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
+      // );
 
-      // console.log("QUANTIDADE DE DADOS NO ARRAY FILTER");
-      // console.log(myComm.length);
-      // console.log(myComm);
-
-      setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      // setComentario(myComm.length > 0 ? myComm[0].descricao : "");
+      // setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
     } catch (error) {
       console.log("Erro ao carregar o evento");
       console.log(error);
@@ -172,7 +172,7 @@ const EventosAlunoPage = () => {
   // cadastrar um comentário = post
   const postMyCommentary = async (descricao, idUsuario, idEvento) => {
     try {
-      const promise = await api.post(commentaryEventResource, {
+      const promise = await api.post(commentaryEventResourceIA, {
         descricao: descricao,
         exibe: true,
         idUsuario: idUsuario,
