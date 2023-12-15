@@ -34,7 +34,7 @@ const EventosAlunoPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   // recupera os dados globais do usuário
-  const { userData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const [comentario, setComentario] = useState("");
   const [idEvento, setIdEvento] = useState("");
   const [idComentario, setIdComentario] = useState(null);
@@ -50,6 +50,7 @@ const EventosAlunoPage = () => {
       //todos os eventos (Evento)
       try {
         const todosEventos = await api.get(eventsResource);
+        console.log(userData.userId);
         const meusEventos = await api.get(
           `${myEventsResource}/${userData.userId}`
         );
@@ -61,33 +62,17 @@ const EventosAlunoPage = () => {
 
         setEventos(eventosMarcados);
 
-        // console.clear();
-
-        // console.log("TODOS OS EVENTOS");
-        // console.log(todosEventos.data);
-
-        // console.log("MEUS EVENTOS");
-        // console.log(meusEventos.data);
-
-        // console.log("EVENTOS MARCADOSSSS:");
-        // console.log(eventosMarcados);
       } catch (error) {
         //colocar o notification
         console.log("Erro na API");
         console.log(error);
       }
     } else if (tipoEvento === "2") {
-      /**
-       * Lista os meus eventos (PresencasEventos)
-       * retorna um formato diferente de array
-       */
+     
       try {
         const retornoEventos = await api.get(
           `${myEventsResource}/${userData.userId}`
         );
-        // console.clear();
-        // console.log("MINHAS PRESENÇAS");
-        // console.log(retornoEventos.data);
 
         const arrEventos = []; //array vazio
 
@@ -134,15 +119,10 @@ const EventosAlunoPage = () => {
   }
 
   const showHideModal = (idEvent) => {
-    // console.clear();
-    // console.log("id do evento atual");
-    // console.log(idEvent);
-
     setShowModal(showModal ? false : true);
-    // setUserData({ ...userData, idEvento: idEvent });
+    setUserData({ ...userData, idEvento: idEvent });
     setIdEvento(idEvent);
-    // console.log("após guardar no state do usuário");
-    // console.log(idEvent);
+  
   };
 
   // ler um comentário - get
@@ -157,12 +137,7 @@ const EventosAlunoPage = () => {
 
       const myCommentary = promise.data;
       return myCommentary;
-      // const myComm = await promise.data.filter(
-      //   (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
-      // );
-
-      // setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      // setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      
     } catch (error) {
       console.log("Erro ao carregar o evento");
       console.log(error);

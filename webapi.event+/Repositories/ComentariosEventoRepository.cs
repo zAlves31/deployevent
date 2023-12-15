@@ -95,7 +95,10 @@ namespace webapi.event_.Repositories
 
                         Evento = new Evento
                         {
+                            IdEvento = c.IdEvento,
                             NomeEvento = c.Evento!.NomeEvento,
+                            DataEvento = c.Evento!.DataEvento,
+                            Descricao = c.Evento!.Descricao,
                         }
 
                     }).Where(c => c.IdEvento == id).ToList();
@@ -127,7 +130,11 @@ namespace webapi.event_.Repositories
 
                         Evento = new Evento
                         {
+                            IdEvento= c.IdEvento,
                             NomeEvento = c.Evento!.NomeEvento,
+                            DataEvento = c.Evento!.DataEvento,
+                            Descricao= c.Evento!.Descricao,
+
                         }
 
                     }).FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == idEvento)!;
@@ -159,7 +166,10 @@ namespace webapi.event_.Repositories
 
                         Evento = new Evento
                         {
+                            IdEvento = c.IdEvento,
                             NomeEvento = c.Evento!.NomeEvento,
+                            DataEvento = c.Evento!.DataEvento,
+                            Descricao = c.Evento!.Descricao,
                         }
 
                     }).Where(c => c.Exibe == true && c.IdEvento == id).ToList();
